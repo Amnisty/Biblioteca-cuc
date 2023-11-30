@@ -12,7 +12,9 @@ export const BooksForm: React.FC = () => {
     Titulo: "",
   });
 
-  const postBook = async () => {
+  const postBook: React.FormEventHandler = async (e) => {
+    e.preventDefault()
+    e.stopPropagation()
     try {
       const booksRef = collection(db, "books");
 
@@ -32,7 +34,7 @@ export const BooksForm: React.FC = () => {
 
   return (
     <div>
-      <form className="d-flex flex-column gap-2">
+      <form className="d-flex flex-column gap-2" onSubmit={postBook}>
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">ID del libro</label>
           <input
@@ -85,7 +87,7 @@ export const BooksForm: React.FC = () => {
           />
         </div>
 
-        <button onClick={postBook} type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary">
           Añadir
         </button>
       </form>
