@@ -23,7 +23,7 @@ export const Login = () => {
         setUser({
           email: userCreated.user.email ?? "",
           name: userCreated.user.displayName ?? "",
-          password: "123",
+          id: userCreated.user.uid ?? "",
           role: 1,
         });
         return redirect("/login");

@@ -1,10 +1,10 @@
-import { collection, doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { db } from "../config/firestore";
 import { Book } from "../pages";
 
 export const BooksForm: React.FC = () => {
-  const [form, setForm] = useState<Omit<Book, "Disponible">>({
+  const [form, setForm] = useState<Omit<Book, "Disponible" | "uuid">>({
     ["Fecha de publicacion"]: "",
     ID: 0,
     Autor: "",
@@ -16,9 +16,9 @@ export const BooksForm: React.FC = () => {
     try {
       const booksRef = collection(db, "books");
 
-      await setDoc(doc(booksRef), {
+      await addDoc(booksRef, {
         ...form,
-        Disponible: true
+        Disponible: true,
       });
     } catch (error) {
       console.error(error);
